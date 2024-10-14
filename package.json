@@ -16,6 +16,7 @@
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "framer-motion": "^11.11.8",
     "lucide-react": "^0.452.0",
     "negotiator": "^0.6.3",
     "next": "14.2.15",
