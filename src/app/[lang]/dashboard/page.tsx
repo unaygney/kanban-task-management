@@ -1,9 +1,6 @@
 import { Locale } from '@/lib/definitions'
-import { getIntl } from '@/lib/intl'
 
 import Header from '@/components/header'
-import { ModeToggle } from '@/components/toggle'
-import { Button } from '@/components/ui/button'
 
 interface Props {
   params: {
@@ -11,17 +8,18 @@ interface Props {
   }
 }
 
+async function getMessages(locale: string) {
+  const messages = (await import(`../../../lang/${locale}.json`)).default
+  return messages
+}
+
 export default async function Home({ params: { lang: locale } }: Props) {
-  const intl = await getIntl(locale)
+  const messages = await getMessages(locale)
+
   return (
-    <div className="min-h-screen w-full bg-red-300 dark:bg-slate-500">
-      <Header />
-      <div className="overflow-scroll">
-        <ModeToggle />
-        <Button>
-          {intl.formatMessage({ id: 'common.navigation.discover' })}
-        </Button>
-      </div>
+    <div className="min-h-screen w-full">
+      <Header locale={locale} messages={messages} />
+      <div className="overflow-scroll p-6">test</div>
     </div>
   )
 }
