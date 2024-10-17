@@ -1,16 +1,6 @@
 {
     "common.language-switcher": "{locale, select, en {İngilizce} de {Almanca} fr {Fransızca} other {Bilinmeyen}}",
-    "common.navigation.discover": "Keşfet",
-    "common.navigation.home": "Ana Sayfa",
-    "common.navigation.reports": "Raporlar",
-    "common.user-menu.settings": "Ayarlar",
-    "common.user-menu.sign-out": "Çıkış Yap",
-    "common.user-menu.your-profile": "Profiliniz",
-    "page.discover.deploy-on-vercel.subtitle": "Next.js projeleriniz için sıfır yapılandırmayla ışık hızında dağıtım ve üstün performans deneyimi.",
-    "page.discover.deploy-on-vercel.title": "Next.js'i Vercel'de Dağıt",
-    "page.home.activities": "Aktiviteler",
-    "page.home.activity": "{action, select, COMMENT {Görev yorumlandı} ACTIVATE {İş etkinleştirildi} STOP {İş durduruldu} other {Bilinmeyen aktivite}}",
-    "page.home.team": "Takım",
-    "page.reports.no-data": "Herhangi bir rapor bulunamadı."
+    "page.header.title": "Görev Yönetimi",
+    "page.header.allboard" : "Tüm Panolar"
   }
   
