@@ -1,11 +1,18 @@
 {
-    "common.language-switcher": "{locale, select, en {İngilizce} de {Almanca} fr {Fransızca} other {Bilinmeyen}}",
-    "page.header.title": "Görev Yönetimi",
-    "page.header.allboard" : "Tüm Panolar",
-    "page.header.language.en": "İngilizce",
-    "page.header.language.tr": "Türkçe",
-    "page.header.add.new.task" : "+ Yeni Görev Ekle",
-    "page.sidebar.allboard" : "Tüm Panolar",
-    "page.sidebar.hide.sidebar" : "Kenar Çubuğunu Gizle"
-  }
-  
+  "common.language-switcher": "{locale, select, en {İngilizce} de {Almanca} fr {Fransızca} other {Bilinmeyen}}",
+  "page.header.title": "Görev Yönetimi",
+  "page.header.allboard": "Tüm Panolar",
+  "page.header.language.en": "İngilizce",
+  "page.header.language.tr": "Türkçe",
+  "page.header.add.new.task": "+ Yeni Görev Ekle",
+  "page.sidebar.allboard": "Tüm Panolar",
+  "page.sidebar.hide.sidebar": "Kenar Çubuğunu Gizle",
+  "page.sidebar.create.new.board": "Yeni Pano Oluştur",
+  "modal.add.new.board.title": "Yeni Pano Ekle",
+  "modal.add.new.board.name": "İsim",
+  "modal.add.new.board.name.placeholder": "ör. Web Tasarım",
+  "modal.add.new.board.columns": "Sütunlar",
+  "modal.add.new.board.columns.placeholder": "ör. Yapılacaklar",
+  "modal.add.new.board.add.new.column": "+ Yeni Sütun Ekle",
+  "modal.add.new.board.create": "Yeni Pano Oluştur"
+}

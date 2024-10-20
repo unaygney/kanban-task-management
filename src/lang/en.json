@@ -1,11 +1,19 @@
 {
     "common.language-switcher": "{locale, select, en {English} de {Deutsch} fr {Français} other {Unknown}}",
     "page.header.title": "Platform Launch",
-    "page.header.allboard" : "All Board",
+    "page.header.allboard": "All Board",
     "page.header.language.en": "English",
     "page.header.language.tr": "Turkish",
-    "page.header.add.new.task" : "+ Add New Task",
-    "page.sidebar.allboard" : "All Board",
-    "page.sidebar.hide.sidebar" : "Hide Sidebar"
-
-}
+    "page.header.add.new.task": "+ Add New Task",
+    "page.sidebar.allboard": "All Board",
+    "page.sidebar.hide.sidebar": "Hide Sidebar",
+    "page.sidebar.create.new.board": "+ Create New Board",
+    "modal.add.new.board.title": "Add New Board",
+    "modal.add.new.board.name": "Name",
+    "modal.add.new.board.name.placeholder": "e.g Web Design",
+    "modal.add.new.board.columns": "Columns",
+    "modal.add.new.board.columns.placeholder": "e.g Todo",
+    "modal.add.new.board.create": "Create New Board",
+    "modal.add.new.board.add.new.column": "+ Add New Column"
+  }
+  
