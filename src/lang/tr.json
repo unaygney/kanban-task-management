@@ -1,6 +1,11 @@
 {
     "common.language-switcher": "{locale, select, en {İngilizce} de {Almanca} fr {Fransızca} other {Bilinmeyen}}",
     "page.header.title": "Görev Yönetimi",
-    "page.header.allboard" : "Tüm Panolar"
+    "page.header.allboard" : "Tüm Panolar",
+    "page.header.language.en": "İngilizce",
+    "page.header.language.tr": "Türkçe",
+    "page.header.add.new.task" : "+ Yeni Görev Ekle",
+    "page.sidebar.allboard" : "Tüm Panolar",
+    "page.sidebar.hide.sidebar" : "Kenar Çubuğunu Gizle"
   }
   

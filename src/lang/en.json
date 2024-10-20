@@ -1,5 +1,11 @@
 {
     "common.language-switcher": "{locale, select, en {English} de {Deutsch} fr {Français} other {Unknown}}",
     "page.header.title": "Platform Launch",
-    "page.header.allboard" : "All Board"
+    "page.header.allboard" : "All Board",
+    "page.header.language.en": "English",
+    "page.header.language.tr": "Turkish",
+    "page.header.add.new.task" : "+ Add New Task",
+    "page.sidebar.allboard" : "All Board",
+    "page.sidebar.hide.sidebar" : "Hide Sidebar"
+
 }
