@@ -20,7 +20,14 @@ interface Props {
   children: React.ReactNode
 }
 
+async function getMessages(locale: string) {
+  const messages = (await import(`../../lang/${locale}.json`)).default
+  return messages
+}
+
 export default async function RootLayout({ params, children }: Props) {
+  const messages = await getMessages(params.lang)
+
   return (
     <html lang={params.lang} className="h-full w-full scroll-smooth">
       <body className={cn('h-full w-full antialiased', jakarta.className)}>
@@ -32,7 +39,7 @@ export default async function RootLayout({ params, children }: Props) {
         >
           <SidebarProvider>
             <div className="flex h-full w-full">
-              <SideBar />
+              <SideBar locale={params.lang} messages={messages} />
               <div className="flex-1 bg-light-grey dark:bg-very-dark-grey">
                 {children}
               </div>

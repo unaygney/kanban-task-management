@@ -6,8 +6,10 @@ import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
+import { FormattedMessage, IntlProvider } from 'react-intl'
 import { useOnClickOutside } from 'usehooks-ts'
 
+import { Locale } from '@/lib/definitions'
 import { cn } from '@/lib/utils'
 
 import { LogoWithText } from './icons'
@@ -48,7 +50,12 @@ export const NAV_LINKS = [
 ] as const
 export type NavLinkType = (typeof NAV_LINKS)[number]
 
-export default function SideBar() {
+interface Props {
+  locale: Locale
+  messages: Record<string, string>
+}
+
+export default function SideBar({ locale, messages }: Props) {
   const { isActive, setActive, toggle } = useSidebar()
   const ref = useRef(null)
 
@@ -57,29 +64,31 @@ export default function SideBar() {
   })
 
   return (
-    <motion.div
-      data-isactive={isActive}
-      ref={ref}
-      initial={{
-        width: '0px',
-      }}
-      animate={{
-        width: isActive ? '300px ' : '0px ',
-      }}
-      transition={{ duration: 0.3 }}
-      className={cn(
-        'relative hidden h-screen flex-col gap-6 border-r border-lines-light bg-white pb-[47px] dark:border-lines-dark dark:bg-dark-grey lg:flex',
-        {
-          'px-6 pt-8': isActive,
-        }
-      )}
-    >
-      <Logo />
-      <Menu isActive={isActive} />
-      <ModeToggle />
-      <HideSideBar setActive={setActive} />
-      <EyeToggle toggle={toggle} />
-    </motion.div>
+    <IntlProvider locale={locale} messages={messages}>
+      <motion.div
+        data-isactive={isActive}
+        ref={ref}
+        initial={{
+          width: '0px',
+        }}
+        animate={{
+          width: isActive ? '300px ' : '0px ',
+        }}
+        transition={{ duration: 0.3 }}
+        className={cn(
+          'relative hidden h-screen flex-col gap-6 border-r border-lines-light bg-white pb-[47px] dark:border-lines-dark dark:bg-dark-grey lg:flex',
+          {
+            'px-6 pt-8': isActive,
+          }
+        )}
+      >
+        <Logo />
+        <Menu isActive={isActive} />
+        <ModeToggle />
+        <HideSideBar setActive={setActive} />
+        <EyeToggle toggle={toggle} />
+      </motion.div>
+    </IntlProvider>
   )
 }
 
@@ -99,7 +108,7 @@ function Menu({ isActive }: { isActive: boolean }) {
   return (
     <nav className="flex w-full flex-grow flex-col gap-5 truncate [[data-isactive=false]_&]:hidden">
       <h3 className="text-xs font-bold uppercase leading-normal tracking-[2.4px] text-medium-grey">
-        All Boards ({NAV_LINKS.length})
+        <FormattedMessage id="page.sidebar.allboard" />({NAV_LINKS.length})
       </h3>
       <ul className="flex flex-col gap-1">
         {NAV_LINKS.map((link) => (
@@ -176,7 +185,9 @@ function HideSideBar({ setActive }: { setActive: (value: boolean) => void }) {
       className="inline-flex items-center gap-4 text-[15px] font-bold text-medium-grey [[data-isactive=false]_&]:hidden"
     >
       <EyeOff className="h-[16px] w-[18px]" />
-      <span>Hide Sidebar</span>
+      <span>
+        <FormattedMessage id="page.sidebar.hide.sidebar" />
+      </span>
     </button>
   )
 }
