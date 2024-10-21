@@ -15,6 +15,13 @@
       "when": 1729443316280,
       "tag": "0001_slimy_inertia",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1729524645997,
+      "tag": "0002_rainy_kat_farrell",
+      "breakpoints": true
     }
   ]
 }
