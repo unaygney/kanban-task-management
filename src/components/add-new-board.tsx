@@ -1,9 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useQueryClient } from '@tanstack/react-query'
 import { X } from 'lucide-react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { FormattedMessage, useIntl } from 'react-intl'
 
 import { AddNewBoardSchema } from '@/lib/definitions'
@@ -27,10 +29,14 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 
+import { addNewBoard } from '@/app/[lang]/dashboard/actions'
+
 import { Board } from './icons'
 
 export default function AddNewBoard() {
   const [columns, setColumns] = useState<string[]>([''])
+
+  const queryClient = useQueryClient()
   const intl = useIntl()
 
   const form = useForm<AddNewBoardSchema>({
@@ -50,7 +56,18 @@ export default function AddNewBoard() {
   } = form
 
   const onSubmit = async (data: AddNewBoardSchema) => {
-    console.log(data)
+    const locale = window.location.pathname.split('/')[1] as 'en' | 'tr'
+    const res = await addNewBoard(data, locale)
+
+    if (res.success) {
+      toast.success(res.message)
+      queryClient.invalidateQueries({ queryKey: ['boards'] })
+      setTimeout(() => {
+        window.location.reload()
+      }, 700)
+    } else {
+      toast.error(res.message)
+    }
   }
 
   const addColumn = () => {
