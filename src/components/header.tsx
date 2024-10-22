@@ -75,7 +75,11 @@ export default function Header({ locale, messages }: Props) {
 
           {/* Add news task and dots area */}
           <div className="ml-auto flex items-center gap-4">
-            <Button size="icon" className="rounded-full">
+            <Button
+              size="icon"
+              disabled={title === undefined}
+              className="rounded-full"
+            >
               <Plus />
             </Button>
             <button>
@@ -102,7 +106,7 @@ export default function Header({ locale, messages }: Props) {
           {/* Right Buttons Area */}
           <div className="ml-auto flex gap-5">
             <div className="flex items-center">
-              <Button>
+              <Button disabled={title === undefined}>
                 <FormattedMessage id="page.header.add.new.task" />
               </Button>
               <button className="ml-5">
