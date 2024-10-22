@@ -19,5 +19,18 @@
   "validationError": "There was a validation error",
   "boardAdded": "New board added",
   "boardFailed": "Failed to add new board",
-    "boardsFetchFailed": "Failed to fetch boards"
+  "boardsFetchFailed": "Failed to fetch boards",
+
+  "modal.add.new.task.header" : "Add New Task", 
+  "modal.add.new.task.title": "Title",
+  "modal.add.new.task.title.placeholder": "e.g. Take a coffee break",
+  "modal.add.new.task.title.label": "Title",  
+  "modal.add.new.task.description.placeholder": "e.g. It's always good to take a break. This 15-minute break will recharge your batteries a little.",
+  "modal.add.new.task.description.label": "Description", 
+  "modal.add.new.task.add.subtask": "e.g. Make coffee",
+  "modal.add.new.task.add.new.subtask": "+ Add New Subtask",
+  "modal.add.new.task.create": "Create Task",
+  "modal.add.new.task.status": "Status",
+  "modal.add.new.task.status.placeholder": "Select a status",
+  "modal.add.new.task.status.label": "Status"  
 }

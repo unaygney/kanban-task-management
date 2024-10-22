@@ -7,6 +7,7 @@
   "page.sidebar.allboard": "Tüm Panolar",
   "page.sidebar.hide.sidebar": "Kenar Çubuğunu Gizle",
   "page.sidebar.create.new.board": "+ Yeni Pano Oluştur",
+
   "modal.add.new.board.title": "Yeni Pano Ekle",
   "modal.add.new.board.name": "Adı",
   "modal.add.new.board.name.placeholder": "ör. Web Tasarım",
@@ -19,5 +20,19 @@
   "validationError": "Doğrulama hatası",
   "boardAdded": "Yeni pano eklendi",
   "boardFailed": "Yeni pano eklenemedi",
-   "boardsFetchFailed": "Panolar getirilemedi"
+  "boardsFetchFailed": "Panolar getirilemedi",
+
+
+  "modal.add.new.task.header" : "Yeni Görev Ekle",
+  "modal.add.new.task.title": "Başlık",
+  "modal.add.new.task.title.placeholder": "Örnek: Kahve molası al",
+  "modal.add.new.task.title.label": "Görev Başlığı",  
+  "modal.add.new.task.description.placeholder": "Örnek: Ara vermek her zaman iyidir. Bu 15 dakikalık mola, pilinizi biraz şarj edecek.",
+  "modal.add.new.task.description.label": "Açıklama", 
+  "modal.add.new.task.add.subtask": "Örnek: Kahve yap",
+  "modal.add.new.task.add.new.subtask": "+ Yeni Alt Görev Ekle",
+  "modal.add.new.task.create": "Görev Oluştur",
+  "modal.add.new.task.status": "Durum",
+  "modal.add.new.task.status.placeholder": "Bir durum seçin",
+  "modal.add.new.task.status.label": "Durum Seçimi"  
 }
