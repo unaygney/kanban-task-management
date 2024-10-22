@@ -9,7 +9,7 @@ import { AddNewBoardSchema } from '@/lib/definitions'
 import { addNewBoardSchema } from '@/lib/validations'
 
 import { db } from '@/db'
-import { boardTable } from '@/db/schema'
+import { boardTable, columnTable } from '@/db/schema'
 
 async function getMessages(locale: 'en' | 'tr') {
   const messages = (await import(`../../../lang/${locale}.json`)).default
@@ -41,12 +41,24 @@ export async function addNewBoard(
   }
 
   try {
-    await db.insert(boardTable).values({
-      name: values.name,
-      columns: values.columns,
-      userId,
-      slug: slugify(values.name, { lower: true }),
-    })
+    const insertedBoard = await db
+      .insert(boardTable)
+      .values({
+        name: values.name,
+        userId,
+        slug: slugify(values.name, { lower: true }),
+      })
+      .returning({ id: boardTable.id })
+
+    const boardId = insertedBoard[0].id
+
+    for (const column of values.columns) {
+      await db.insert(columnTable).values({
+        name: column,
+        boardId,
+      })
+    }
+
     revalidatePath('/', 'layout')
     return {
       success: true,
@@ -88,4 +100,13 @@ export async function getBoards(locale: 'en' | 'tr' = 'en') {
       message: messages['boardsFetchFailed'] || 'Failed to fetch boards',
     }
   }
+}
+export async function getColumnByTask(boardId: number) {
+  const columns = await db
+    .select()
+    .from(columnTable)
+    .where(eq(columnTable.boardId, boardId))
+    .execute()
+
+  return columns
 }

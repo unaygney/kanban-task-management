@@ -18,6 +18,7 @@ import {
 import { getBoards } from '@/app/[lang]/dashboard/actions'
 
 import AddNewBoard from './add-new-board'
+import AddNewTask from './add-new.task'
 import { Logo, LogoWithText } from './icons'
 import { useSidebar } from './providers'
 import SelectLanguage from './select-language'
@@ -106,9 +107,7 @@ export default function Header({ locale, messages }: Props) {
           {/* Right Buttons Area */}
           <div className="ml-auto flex gap-5">
             <div className="flex items-center">
-              <Button disabled={title === undefined}>
-                <FormattedMessage id="page.header.add.new.task" />
-              </Button>
+              <AddNewTask title={title} />
               <button className="ml-5">
                 <EllipsisVertical />
               </button>

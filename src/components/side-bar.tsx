@@ -112,7 +112,6 @@ export function NavLink({
     name: string
     id: number
     slug: string
-    columns: unknown[]
     userId: string
   }
   isActive: boolean
