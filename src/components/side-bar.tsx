@@ -26,6 +26,7 @@ interface Props {
 }
 
 export default function SideBar({ locale, messages }: Props) {
+  const [isMounted, setIsMounted] = useState(false)
   const { isActive, setActive, toggle } = useSidebar()
   const ref = useRef(null)
 
@@ -33,7 +34,11 @@ export default function SideBar({ locale, messages }: Props) {
     if (isActive) setActive(false)
   })
 
-  return (
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
+
+  return isMounted ? (
     <IntlProvider locale={locale} messages={messages}>
       <motion.div
         data-isactive={isActive}
@@ -53,14 +58,13 @@ export default function SideBar({ locale, messages }: Props) {
         )}
       >
         <Logo />
-
         <Menu isActive={isActive} />
         <ModeToggle />
         <HideSideBar setActive={setActive} />
         <EyeToggle toggle={toggle} />
       </motion.div>
     </IntlProvider>
-  )
+  ) : null
 }
 
 function Logo() {

@@ -16,11 +16,11 @@ export async function generateStaticParams() {
   )
 }
 
-export default function PreviewKanbanPage({
+export default async function Page({
   params,
 }: {
-  params: { slug: string }
+  params: { slug: string; lang: string }
 }) {
-  const { slug } = params
-  return <div>id : {slug}</div>
+  console.log(params)
+  return <div>test</div>
 }

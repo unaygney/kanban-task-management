@@ -1,6 +1,5 @@
 import '../globals.css'
 import type { Metadata } from 'next'
-import dynamic from 'next/dynamic'
 import { Toaster } from 'react-hot-toast'
 
 import { Locale } from '@/lib/definitions'
@@ -12,8 +11,7 @@ import {
   TanstackProvider,
   ThemeProvider,
 } from '@/components/providers'
-
-const SideBar = dynamic(() => import('@/components/side-bar'), { ssr: false })
+import SideBar from '@/components/side-bar'
 
 export const metadata: Metadata = {
   title: 'Kanban | Task Management',
@@ -34,7 +32,11 @@ export default async function RootLayout({ params, children }: Props) {
   const messages = await getMessages(params.lang)
 
   return (
-    <html lang={params.lang} className="h-full w-full scroll-smooth">
+    <html
+      lang={params.lang}
+      className="h-full w-full scroll-smooth"
+      suppressHydrationWarning
+    >
       <body className={cn('h-full w-full antialiased', jakarta.className)}>
         <TanstackProvider>
           <ThemeProvider
