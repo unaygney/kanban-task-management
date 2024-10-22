@@ -1,7 +1,7 @@
 import {
+  boolean,
   index,
   integer,
-  jsonb,
   pgTable,
   uniqueIndex,
   uuid,
@@ -14,7 +14,6 @@ export const boardTable = pgTable(
     id: integer().primaryKey().generatedAlwaysAsIdentity(),
     name: varchar({ length: 255 }).notNull(),
     slug: varchar({ length: 255 }).notNull(),
-    columns: jsonb().array().notNull(),
     userId: uuid().notNull(),
   },
   (table) => ({
@@ -22,3 +21,30 @@ export const boardTable = pgTable(
     slugUniqueIdx: uniqueIndex('slug_unique_idx').on(table.slug),
   })
 )
+
+export const columnTable = pgTable('columns', {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  name: varchar({ length: 255 }).notNull(),
+  boardId: integer()
+    .references(() => boardTable.id)
+    .notNull(),
+})
+
+export const taskTable = pgTable('tasks', {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  title: varchar({ length: 255 }).notNull(),
+  description: varchar({ length: 1000 }),
+  status: varchar({ length: 50 }).notNull(),
+  columnId: integer()
+    .references(() => columnTable.id)
+    .notNull(),
+})
+
+export const subtaskTable = pgTable('subtasks', {
+  id: integer().primaryKey().generatedAlwaysAsIdentity(),
+  title: varchar({ length: 255 }).notNull(),
+  isCompleted: boolean().notNull().default(false),
+  taskId: integer()
+    .references(() => taskTable.id)
+    .notNull(),
+})
