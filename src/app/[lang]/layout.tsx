@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 }
 
 interface Props {
-  params: { lang: Locale }
+  params: Promise<{ lang: Locale }>
   children: React.ReactNode
 }
 
@@ -28,7 +28,11 @@ async function getMessages(locale: string) {
   return messages
 }
 
-export default async function RootLayout({ params, children }: Props) {
+export default async function RootLayout(props: Props) {
+  const params = await props.params
+
+  const { children } = props
+
   const messages = await getMessages(params.lang)
 
   return (

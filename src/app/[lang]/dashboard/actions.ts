@@ -20,7 +20,7 @@ export async function addNewBoard(
   values: AddNewBoardSchema,
   locale: 'en' | 'tr'
 ) {
-  const userId = cookies().get('user_id')?.value ?? null
+  const userId = (await cookies()).get('user_id')?.value ?? null
 
   const messages = await getMessages(locale)
 
@@ -61,7 +61,7 @@ export async function addNewBoard(
   }
 }
 export async function getBoards(locale: 'en' | 'tr' = 'en') {
-  const userId = cookies().get('user_id')?.value ?? null
+  const userId = (await cookies()).get('user_id')?.value ?? null
 
   const messages = await getMessages(locale)
 

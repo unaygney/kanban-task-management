@@ -16,11 +16,10 @@ export async function generateStaticParams() {
   )
 }
 
-export default async function Page({
-  params,
-}: {
-  params: { slug: string; lang: string }
+export default async function Page(props: {
+  params: Promise<{ slug: string; lang: string }>
 }) {
-  console.log(params)
-  return <div>test</div>
+  const params = await props.params
+
+  return <div>test : {params.slug}</div>
 }

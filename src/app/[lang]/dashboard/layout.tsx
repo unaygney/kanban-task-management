@@ -6,9 +6,9 @@ import Header from '@/components/header'
 
 interface Props {
   children: React.ReactNode
-  params: {
+  params: Promise<{
     lang: Locale
-  }
+  }>
 }
 
 async function getMessages(locale: string) {
@@ -16,10 +16,17 @@ async function getMessages(locale: string) {
   return messages
 }
 
-export default async function DashboardLayout({
-  children,
-  params: { lang: locale },
-}: Props) {
+export default async function DashboardLayout(props: Props) {
+  const params = await props.params;
+
+  const {
+    lang: locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   const messages = await getMessages(locale)
 
   return (
