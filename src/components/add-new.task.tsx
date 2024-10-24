@@ -158,7 +158,9 @@ export default function AddNewTask({
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>
+                      <FormattedMessage id="modal.add.new.task.description.label" />
+                    </FormLabel>
                     <FormControl>
                       <Textarea
                         className="h-[135px] resize-none"
@@ -177,7 +179,9 @@ export default function AddNewTask({
 
               {/* Subtasks (Dinamik Alanlar) */}
               <div>
-                <FormLabel>Subtasks</FormLabel>
+                <FormLabel>
+                  <FormattedMessage id="modal.add.new.task.add.subtask.label" />
+                </FormLabel>
                 {fields.map((field, index) => (
                   <div key={field.id} className="flex items-center gap-2">
                     <FormControl>
@@ -208,7 +212,6 @@ export default function AddNewTask({
                 <FormattedMessage id="modal.add.new.task.add.new.subtask" />
               </Button>
 
-              {/* Status (Hangi Column'a Kaydedileceği) */}
               <FormField
                 control={control}
                 name="status"

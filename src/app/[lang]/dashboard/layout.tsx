@@ -17,22 +17,18 @@ async function getMessages(locale: string) {
 }
 
 export default async function DashboardLayout(props: Props) {
-  const params = await props.params;
+  const params = await props.params
 
-  const {
-    lang: locale
-  } = params;
+  const { lang: locale } = params
 
-  const {
-    children
-  } = props;
+  const { children } = props
 
   const messages = await getMessages(locale)
 
   return (
-    <div className="min-h-screen w-full">
+    <div className="flex min-h-screen w-full flex-col">
       <Header locale={locale} messages={messages} />
-      <div className="overflow-scroll p-6">{children}</div>
+      <div className="flex-1 overflow-scroll">{children}</div>
     </div>
   )
 }

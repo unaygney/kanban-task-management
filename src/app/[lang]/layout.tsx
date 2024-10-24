@@ -36,11 +36,7 @@ export default async function RootLayout(props: Props) {
   const messages = await getMessages(params.lang)
 
   return (
-    <html
-      lang={params.lang}
-      className="h-full w-full scroll-smooth"
-      suppressHydrationWarning
-    >
+    <html lang={params.lang} className="scroll-smooth" suppressHydrationWarning>
       <body className={cn('h-full w-full antialiased', jakarta.className)}>
         <TanstackProvider>
           <ThemeProvider
