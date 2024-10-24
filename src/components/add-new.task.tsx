@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQuery } from '@tanstack/react-query'
 import { Plus, X } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 import React from 'react'
 import { useFieldArray, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -36,7 +37,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
-import { getColumnByTask } from '@/app/[lang]/dashboard/actions'
+import { addNewsTask, getColumnByTask } from '@/app/[lang]/dashboard/actions'
 
 import { Textarea } from './ui/textarea'
 
@@ -46,6 +47,9 @@ export default function AddNewTask({
   title: SelectBoard | undefined
 }) {
   const taskId = title?.id
+
+  const pathname = usePathname()
+  const locale = pathname.split('/')[1] as 'en' | 'tr'
 
   const { data } = useQuery({
     queryKey: ['columns', taskId],
@@ -82,7 +86,18 @@ export default function AddNewTask({
 
   const onSubmit = async (data: AddNewTaskSchema) => {
     console.log('submit', data)
-    toast.success('Task successfully created!')
+
+    if (title?.id === undefined) {
+      toast.error('Task ID is undefined')
+      return
+    }
+    const res = await addNewsTask(data, title.id, locale)
+
+    if (res.success) {
+      toast.success('Task created successfully')
+    } else {
+      toast.error(res.message)
+    }
   }
 
   return (

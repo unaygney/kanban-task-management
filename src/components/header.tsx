@@ -3,7 +3,9 @@
 import { useQuery } from '@tanstack/react-query'
 import { ChevronDown, EllipsisVertical, Plus } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import toast from 'react-hot-toast'
 import { FormattedMessage, IntlProvider } from 'react-intl'
 
 import { Locale } from '@/lib/definitions'
@@ -15,7 +17,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover'
 
-import { getBoards } from '@/app/[lang]/dashboard/actions'
+import { deleteBoard, getBoards } from '@/app/[lang]/dashboard/actions'
 
 import AddNewBoard from './add-new-board'
 import AddNewTask from './add-new.task'
@@ -32,6 +34,7 @@ interface Props {
 
 export default function Header({ locale, messages }: Props) {
   const pathname = usePathname()
+  const router = useRouter()
   const { isActive } = useSidebar()
 
   const { data } = useQuery({
@@ -45,6 +48,23 @@ export default function Header({ locale, messages }: Props) {
   const slug = pathname.split('/')[3]
 
   const title = NavLinks.find((link) => link.slug === slug)
+
+  const handleDeleteTask = async () => {
+    if (!title) {
+      return
+    }
+    const { success, message } = await deleteBoard(title.id, locale)
+
+    if (success) {
+      toast.success(message)
+      router.push(`/${locale}/dashboard`)
+      setTimeout(() => {
+        window.location.reload()
+      }, 700)
+    } else {
+      toast.error(message)
+    }
+  }
   return (
     <IntlProvider locale={locale} messages={messages}>
       <div className="flex h-16 w-full items-center border-b border-lines-light bg-white px-6 dark:border-lines-dark dark:bg-dark-grey md:h-20 lg:h-24">
@@ -83,9 +103,27 @@ export default function Header({ locale, messages }: Props) {
             >
               <Plus />
             </Button>
-            <button>
-              <EllipsisVertical />
-            </button>
+
+            <Popover>
+              <PopoverTrigger className="ml-5">
+                <EllipsisVertical />
+              </PopoverTrigger>
+              <PopoverContent className="w-[250px] bg-white px-6 dark:border-lines-dark dark:bg-dark-grey">
+                <div className="flex flex-col gap-4">
+                  <h3 className="text-lg font-bold">
+                    <FormattedMessage id="popup.delete.title" />
+                  </h3>
+                  {/* Delete Button */}
+                  <Button
+                    disabled={title === undefined}
+                    onClick={handleDeleteTask}
+                    variant="destructive"
+                  >
+                    <FormattedMessage id="popup.delete.task" />
+                  </Button>
+                </div>
+              </PopoverContent>
+            </Popover>
           </div>
           <div></div>
         </div>
@@ -108,9 +146,27 @@ export default function Header({ locale, messages }: Props) {
           <div className="ml-auto flex gap-5">
             <div className="flex items-center">
               <AddNewTask title={title} />
-              <button className="ml-5">
-                <EllipsisVertical />
-              </button>
+
+              <Popover>
+                <PopoverTrigger className="ml-5">
+                  <EllipsisVertical />
+                </PopoverTrigger>
+                <PopoverContent className="w-[250px] bg-white px-6 dark:border-lines-dark dark:bg-dark-grey">
+                  <div className="flex flex-col gap-4">
+                    <h3 className="text-lg font-bold">
+                      <FormattedMessage id="popup.delete.title" />
+                    </h3>
+                    {/* Delete Button */}
+                    <Button
+                      disabled={title === undefined}
+                      onClick={handleDeleteTask}
+                      variant="destructive"
+                    >
+                      <FormattedMessage id="popup.delete.task" />
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
             </div>
             {/* Language Switcher */}
             <div className="">

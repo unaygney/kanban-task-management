@@ -6,9 +6,8 @@ import { Eye, EyeOff, Moon, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FormattedMessage, IntlProvider } from 'react-intl'
-import { useOnClickOutside } from 'usehooks-ts'
 
 import { Locale } from '@/lib/definitions'
 import { cn } from '@/lib/utils'
@@ -28,11 +27,10 @@ interface Props {
 export default function SideBar({ locale, messages }: Props) {
   const [isMounted, setIsMounted] = useState(false)
   const { isActive, setActive, toggle } = useSidebar()
-  const ref = useRef(null)
 
-  useOnClickOutside(ref, () => {
-    if (isActive) setActive(false)
-  })
+  // useOnClickOutside(ref, () => {
+  //   if (isActive) setActive(false)
+  // })
 
   useEffect(() => {
     setIsMounted(true)
@@ -42,7 +40,6 @@ export default function SideBar({ locale, messages }: Props) {
     <IntlProvider locale={locale} messages={messages}>
       <motion.div
         data-isactive={isActive}
-        ref={ref}
         initial={{
           width: '0px',
         }}
