@@ -14,12 +14,19 @@
   "modal.add.new.board.columns.placeholder": "e.g Todo",
   "modal.add.new.board.create": "Create New Board",
   "modal.add.new.board.add.new.column": "+ Add New Column",
+
+  "popup.delete.title" : "Actions",
+  "popup.delete.task" : "Delete Task",
   
   "userNotFound": "User not found",
   "validationError": "There was a validation error",
   "boardAdded": "New board added",
   "boardFailed": "Failed to add new board",
   "boardsFetchFailed": "Failed to fetch boards",
+  "taskFailed" : "Failed to add new task",
+  "taskAdded" : "New task added",
+  "boardDeleted" : "Board deleted",
+  "boardDeleteFailed" : "Failed to delete board",
 
   "modal.add.new.task.header" : "Add New Task", 
   "modal.add.new.task.title": "Title",

@@ -16,12 +16,18 @@
   "modal.add.new.board.create": "Yeni Pano Oluştur",
   "modal.add.new.board.add.new.column": "+ Yeni Sütun Ekle",
   
+  "popup.delete.title" : "Aksiyonlar",
+  "popup.delete.task" : "Görevi Sil",
+
   "userNotFound": "Kullanıcı bulunamadı",
   "validationError": "Doğrulama hatası",
   "boardAdded": "Yeni pano eklendi",
   "boardFailed": "Yeni pano eklenemedi",
   "boardsFetchFailed": "Panolar getirilemedi",
-
+  "taskFailed" : "Yeni görev eklenemedi",
+  "taskAdded" : "Yeni Görev Eklendi",
+  "boardDeleted" : "Pano Silindi.",
+  "boardDeleteFailed" : "Pano silinirken hata oluştu",
 
   "modal.add.new.task.header" : "Yeni Görev Ekle",
   "modal.add.new.task.title": "Başlık",
