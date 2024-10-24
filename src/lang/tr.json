@@ -7,6 +7,7 @@
   "page.sidebar.allboard": "Tüm Panolar",
   "page.sidebar.hide.sidebar": "Kenar Çubuğunu Gizle",
   "page.sidebar.create.new.board": "+ Yeni Pano Oluştur",
+  "page.empty.board" : "Bu pano boş. Başlamak için yeni bir sütun oluşturun.",
 
   "modal.add.new.board.title": "Yeni Pano Ekle",
   "modal.add.new.board.name": "Adı",
@@ -36,6 +37,7 @@
   "modal.add.new.task.description.placeholder": "Örnek: Ara vermek her zaman iyidir. Bu 15 dakikalık mola, pilinizi biraz şarj edecek.",
   "modal.add.new.task.description.label": "Açıklama", 
   "modal.add.new.task.add.subtask": "Örnek: Kahve yap",
+  "modal.add.new.task.add.subtask.label": "Alt Görev",
   "modal.add.new.task.add.new.subtask": "+ Yeni Alt Görev Ekle",
   "modal.add.new.task.create": "Görev Oluştur",
   "modal.add.new.task.status": "Durum",
