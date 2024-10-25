@@ -1,9 +1,11 @@
-import { eq } from 'drizzle-orm'
+import { eq, inArray } from 'drizzle-orm'
+import { redirect } from 'next/navigation'
 import React from 'react'
 
 import { getIntl } from '@/lib/intl'
 
 import { Column } from '@/components/column'
+// Column bileşeni
 import { Button } from '@/components/ui/button'
 
 import { db } from '@/db'
@@ -22,56 +24,65 @@ export async function generateStaticParams() {
   )
 }
 
+async function getMessages(locale: string) {
+  const messages = (await import(`../../../../lang/${locale}.json`)).default
+  return messages
+}
+
 export default async function Page(props: {
   params: Promise<{ slug: string; lang: string }>
 }) {
   const params = await props.params
   const { lang } = params as { slug: string; lang: 'en' | 'tr' }
   const intl = await getIntl(lang)
-
+  const messages = await getMessages(lang)
   const board = await db
     .select()
     .from(boardTable)
     .where(eq(boardTable.slug, params.slug))
 
+  if (!board.length) {
+    redirect(`/${lang}/dashboard`)
+  }
+
   const columns = await db
     .select()
     .from(columnTable)
-    .where(eq(columnTable.boardId, board[0]?.id))
+    .where(eq(columnTable.boardId, board[0].id))
 
-  const columnsWithTasksAndSubtasks = await Promise.all(
-    columns.map(async (column) => {
-      const tasks = await db
-        .select()
-        .from(taskTable)
-        .where(eq(taskTable.columnId, column.id))
-
-      const tasksWithSubtasks = await Promise.all(
-        tasks.map(async (task) => {
-          const subTasks = await db
-            .select()
-            .from(subtaskTable)
-            .where(eq(subtaskTable.taskId, task.id))
-
-          return { ...task, subTasks }
-        })
+  const tasks = await db
+    .select()
+    .from(taskTable)
+    .where(
+      inArray(
+        taskTable.columnId,
+        columns.map((column) => column.id)
       )
+    )
 
-      return { ...column, tasks: tasksWithSubtasks }
-    })
-  )
+  const subTasks = await db
+    .select()
+    .from(subtaskTable)
+    .where(
+      inArray(
+        subtaskTable.taskId,
+        tasks.map((task) => task.id)
+      )
+    )
 
   return (
     <div className="flex h-[calc(100vh-64px)] gap-5 overflow-scroll p-6 md:h-[calc(100vh-5rem)] lg:h-[calc(100vh-6rem)]">
-      {columnsWithTasksAndSubtasks.length > 0 ? (
+      {columns.length > 0 ? (
         <div className="flex gap-4">
-          {columnsWithTasksAndSubtasks.map((column) => (
+          {columns.map((column) => (
             <Column
               key={column.id}
-              id={board[0].id}
+              id={column.boardId}
               name={column.name}
-              tasks={column.tasks}
-              subTasks={column.tasks.flatMap((task) => task.subTasks)}
+              tasks={tasks.filter((task) => task.status === column.name)}
+              subTasks={subTasks}
+              locale={lang}
+              messages={messages}
             />
           ))}
         </div>

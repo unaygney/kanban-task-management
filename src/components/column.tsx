@@ -4,8 +4,9 @@ import { Reorder, useDragControls } from 'framer-motion'
 import { Grip } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
+import { IntlProvider } from 'react-intl'
 
-import { SelectSubTask, SelectTask } from '@/lib/definitions'
+import { Locale, SelectSubTask, SelectTask } from '@/lib/definitions'
 
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 
@@ -16,6 +17,8 @@ interface ColumnProps {
   tasks: SelectTask[]
   subTasks: SelectSubTask[]
   id: number
+  locale: Locale
+  messages: Record<string, string>
 }
 
 export const Column: React.FC<ColumnProps> = ({
@@ -23,12 +26,14 @@ export const Column: React.FC<ColumnProps> = ({
   tasks,
   subTasks,
   id,
+  locale,
+  messages,
 }) => {
   const [items, setItems] = useState(tasks)
   const controls = useDragControls()
 
   return (
-    <>
+    <IntlProvider locale={locale} messages={messages}>
       <div className="flex w-[280px] flex-col gap-6">
         <div className="flex items-center gap-3">
           <span
@@ -69,7 +74,7 @@ export const Column: React.FC<ColumnProps> = ({
           })}
         </Reorder.Group>
       </div>
-    </>
+    </IntlProvider>
   )
 }
 

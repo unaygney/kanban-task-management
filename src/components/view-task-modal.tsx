@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { z } from 'zod'
 
 import { SelectSubTask, SelectTask } from '@/lib/definitions'
@@ -56,11 +57,13 @@ const formSchema = z.object({
 })
 
 export default function ViewTaskModal({ task, subTasks, columnId }: Props) {
+  const intl = useIntl()
   // get the columns
   const { data: columns } = useQuery({
     queryKey: ['columns'],
     queryFn: async () => getColumnById(columnId),
   })
+
   // update the subtask status
   const { mutate: mutateSubTaskStatus } = useMutation({
     mutationFn: async ({
@@ -73,11 +76,11 @@ export default function ViewTaskModal({ task, subTasks, columnId }: Props) {
       return updateSubTaskStatus(subTaskId, completed)
     },
     onSuccess: () => {
-      toast.success('Subtask updated successfully')
+      toast.success(intl.formatMessage({ id: 'toast.subtask.update.success' }))
     },
     onError: (error) => {
       console.error(error)
-      toast.error('Failed to update subtask')
+      toast.error(intl.formatMessage({ id: 'toast.subtask.update.failed' }))
     },
   })
   // update the task status
@@ -86,10 +89,13 @@ export default function ViewTaskModal({ task, subTasks, columnId }: Props) {
       return updateTaskStatus(task.id, status)
     },
     onSuccess: () => {
-      toast.success('Task status updated successfully')
+      toast.success(intl.formatMessage({ id: 'toast.status.update.success' }))
+      setTimeout(() => {
+        window.location.reload()
+      }, 700)
     },
     onError: () => {
-      toast.error('Failed to update task status')
+      toast.error(intl.formatMessage({ id: 'toast.status.update.failed' }))
     },
   })
 
@@ -174,7 +180,9 @@ export default function ViewTaskModal({ task, subTasks, columnId }: Props) {
             name="currentStatus"
             render={() => (
               <FormItem>
-                <FormLabel>Şuanki Durum</FormLabel>
+                <FormLabel>
+                  <FormattedMessage id="modal.add.new.task.status" />
+                </FormLabel>
                 <FormControl>
                   <Select
                     onValueChange={(value) => handleStatusChange(value)}

@@ -252,6 +252,7 @@ export async function updateSubTaskStatus(
     .where(eq(subtaskTable.id, subTaskId))
     .execute()
 
+  revalidatePath('/', 'layout')
   return { success: true }
 }
 export async function updateTaskStatus(taskId: number, status: string) {
@@ -262,6 +263,8 @@ export async function updateTaskStatus(taskId: number, status: string) {
     })
     .where(eq(taskTable.id, taskId))
     .execute()
+
+  revalidatePath('/', 'layout')
 
   return { success: true }
 }
