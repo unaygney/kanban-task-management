@@ -46,7 +46,7 @@ export default async function RootLayout(props: Props) {
             disableTransitionOnChange
           >
             <SidebarProvider>
-              <div className="flex h-full w-full">
+              <div className="flex h-full w-full" suppressHydrationWarning>
                 <SideBar locale={params.lang} messages={messages} />
                 <div className="flex-1 bg-light-grey dark:bg-very-dark-grey">
                   {children}

@@ -232,3 +232,36 @@ export async function deleteBoard(boardId: number, locale: 'en' | 'tr') {
     }
   }
 }
+export async function getColumnById(columnId: number) {
+  const columns = await db
+    .select()
+    .from(columnTable)
+    .where(eq(columnTable.boardId, columnId))
+    .execute()
+
+  return columns
+}
+
+export async function updateSubTaskStatus(
+  subTaskId: number,
+  completed: boolean
+) {
+  await db
+    .update(subtaskTable)
+    .set({ isCompleted: completed })
+    .where(eq(subtaskTable.id, subTaskId))
+    .execute()
+
+  return { success: true }
+}
+export async function updateTaskStatus(taskId: number, status: string) {
+  await db
+    .update(taskTable)
+    .set({
+      status,
+    })
+    .where(eq(taskTable.id, taskId))
+    .execute()
+
+  return { success: true }
+}

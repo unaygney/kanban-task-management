@@ -4,7 +4,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider as NextThemesProvider } from 'next-themes'
 import { type ThemeProviderProps } from 'next-themes/dist/types'
 import * as React from 'react'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { useLocalStorage } from 'usehooks-ts'
 
 export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
   return <NextThemesProvider {...props}>{children}</NextThemesProvider>
@@ -21,9 +22,18 @@ export const SidebarProvider = ({
 }: {
   children: React.ReactNode
 }) => {
-  const [isActive, setActive] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+  const [isActive, setActive] = useLocalStorage('sidebarIsActive', false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const toggle = () => setActive(!isActive)
+
+  if (!isMounted) {
+    return null
+  }
 
   return (
     <SidebarContext.Provider value={{ isActive, setActive, toggle }}>

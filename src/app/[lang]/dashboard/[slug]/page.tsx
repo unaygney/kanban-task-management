@@ -68,6 +68,7 @@ export default async function Page(props: {
           {columnsWithTasksAndSubtasks.map((column) => (
             <Column
               key={column.id}
+              id={board[0].id}
               name={column.name}
               tasks={column.tasks}
               subTasks={column.tasks.flatMap((task) => task.subTasks)}
