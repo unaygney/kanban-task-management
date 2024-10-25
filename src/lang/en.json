@@ -41,5 +41,10 @@
   "modal.add.new.task.create": "Create Task",
   "modal.add.new.task.status": "Status",
   "modal.add.new.task.status.placeholder": "Select a status",
-  "modal.add.new.task.status.label": "Status"  
+  "modal.add.new.task.status.label": "Status",
+
+  "toast.status.update.success" : "Task status updated successfully",
+  "toast.status.update.failed" : "Failed to update task status",
+  "toast.subtask.update.success" : "Subtask updated successfully",
+  "toast.subtask.update.failed" : "Subtask update failed"
 }

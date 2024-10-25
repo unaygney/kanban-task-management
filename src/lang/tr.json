@@ -42,5 +42,11 @@
   "modal.add.new.task.create": "Görev Oluştur",
   "modal.add.new.task.status": "Durum",
   "modal.add.new.task.status.placeholder": "Bir durum seçin",
-  "modal.add.new.task.status.label": "Durum Seçimi"  
+  "modal.add.new.task.status.label": "Durum Seçimi",
+
+  "toast.status.update.success" : "Görev durumu başarıyla güncellendi",
+"toast.status.update.failed" : "Görev durumu güncellenemedi",
+"toast.subtask.update.success" : "Alt görev başarıyla güncellendi",
+"toast.subtask.update.failed" : "Alt görev güncellenemedi"
+
 }
