@@ -5,7 +5,6 @@ import React from 'react'
 import { getIntl } from '@/lib/intl'
 
 import { Column } from '@/components/column'
-// Column bileşeni
 import { Button } from '@/components/ui/button'
 
 import { db } from '@/db'
