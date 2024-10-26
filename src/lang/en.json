@@ -43,6 +43,8 @@
   "modal.add.new.task.status.placeholder": "Select a status",
   "modal.add.new.task.status.label": "Status",
 
+   "subtasks.completed": "{completed} of {total} subtasks completed",
+
   "toast.status.update.success" : "Task status updated successfully",
   "toast.status.update.failed" : "Failed to update task status",
   "toast.subtask.update.success" : "Subtask updated successfully",
