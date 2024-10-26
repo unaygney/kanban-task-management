@@ -18,7 +18,10 @@ export const boardTable = pgTable(
   },
   (table) => ({
     userIdIdx: index('user_id_idx').on(table.userId),
-    slugUniqueIdx: uniqueIndex('slug_unique_idx').on(table.slug),
+    userSlugUniqueIdx: uniqueIndex('user_slug_unique_idx').on(
+      table.userId,
+      table.slug
+    ),
   })
 )
 
