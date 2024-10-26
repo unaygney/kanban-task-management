@@ -26,7 +26,7 @@ export default function SelectLanguage({ className }: { className?: string }) {
           <Languages />
         </button>
       </PopoverTrigger>
-      <PopoverContent className={cn('ml-auto w-32')}>
+      <PopoverContent className={cn('ml-auto w-32 bg-white dark:bg-dark-grey')}>
         <div className="flex flex-col divide-y">
           <Link className="pb-2" href={`/en/dashboard/${REST_URL}`}>
             <span>

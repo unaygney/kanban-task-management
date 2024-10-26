@@ -4,7 +4,7 @@ import { Reorder, useDragControls } from 'framer-motion'
 import { Grip } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
-import { IntlProvider } from 'react-intl'
+import { FormattedMessage, IntlProvider } from 'react-intl'
 
 import { Locale, SelectSubTask, SelectTask } from '@/lib/definitions'
 
@@ -104,7 +104,13 @@ export const Task: React.FC<TaskProps> = ({ task, subTasks, controls, id }) => {
               {task.title}
             </h6>
             <p className="text-xs font-bold leading-normal text-medium-grey">
-              {completedSubTasks.length} of {subTasks.length} subtasks completed
+              <FormattedMessage
+                id="subtasks.completed"
+                values={{
+                  completed: completedSubTasks.length,
+                  total: subTasks.length,
+                }}
+              />
             </p>
           </div>
         </DialogTrigger>

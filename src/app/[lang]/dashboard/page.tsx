@@ -1,8 +1,6 @@
 import { Locale } from '@/lib/definitions'
 import { getIntl } from '@/lib/intl'
 
-import { Button } from '@/components/ui/button'
-
 interface Props {
   params: Promise<{
     lang: Locale
@@ -21,9 +19,6 @@ export default async function Home(props: Props) {
         <p className="text-lg font-bold leading-normal text-medium-grey">
           {intl.formatMessage({ id: 'page.empty.board' })}
         </p>
-        <Button className="mx-auto self-start">
-          {intl.formatMessage({ id: 'modal.add.new.board.add.new.column' })}
-        </Button>
       </div>
     </div>
   )

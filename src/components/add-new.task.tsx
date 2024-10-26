@@ -85,8 +85,6 @@ export default function AddNewTask({
   })
 
   const onSubmit = async (data: AddNewTaskSchema) => {
-    console.log('submit', data)
-
     if (title?.id === undefined) {
       toast.error('Task ID is undefined')
       return
@@ -94,7 +92,10 @@ export default function AddNewTask({
     const res = await addNewsTask(data, title.id, locale)
 
     if (res.success) {
-      toast.success('Task created successfully')
+      toast.success(res.message)
+      setTimeout(() => {
+        window.location.reload()
+      }, 700)
     } else {
       toast.error(res.message)
     }
@@ -120,7 +121,7 @@ export default function AddNewTask({
             </Button>
           </div>
         </DialogTrigger>
-        <DialogContent className="max-h-[600px] overflow-scroll">
+        <DialogContent className="max-h-[600px] overflow-scroll bg-white dark:bg-dark-grey">
           <DialogHeader>
             <DialogTitle>
               <FormattedMessage id="modal.add.new.task.header" />

@@ -91,7 +91,7 @@ export default function AddNewBoard() {
           <FormattedMessage id="modal.add.new.board.title" />
         </button>
       </DialogTrigger>
-      <DialogContent className="max-h-[600px] overflow-scroll">
+      <DialogContent className="max-h-[600px] overflow-scroll bg-white dark:bg-dark-grey">
         <DialogHeader>
           <DialogTitle>
             <FormattedMessage id="modal.add.new.board.title" />

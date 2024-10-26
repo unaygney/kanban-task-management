@@ -97,7 +97,7 @@ export default async function Page(props: {
         </div>
       )}
 
-      <div
+      {/* <div
         className="ml-auto flex max-w-[280px] flex-1 items-center justify-center rounded-[6px]"
         style={{
           background:
@@ -107,7 +107,7 @@ export default async function Page(props: {
         <button className="text-center text-2xl font-bold leading-normal text-medium-grey">
           {intl.formatMessage({ id: 'modal.add.new.board.add.new.column' })}
         </button>
-      </div>
+      </div> */}
     </div>
   )
 }
