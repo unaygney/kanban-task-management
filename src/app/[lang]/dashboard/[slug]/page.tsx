@@ -1,4 +1,4 @@
-import { eq, inArray } from 'drizzle-orm'
+import { eq } from 'drizzle-orm'
 import { redirect } from 'next/navigation'
 import React from 'react'
 
@@ -8,7 +8,7 @@ import { Column } from '@/components/column'
 import { Button } from '@/components/ui/button'
 
 import { db } from '@/db'
-import { boardTable, columnTable, subtaskTable, taskTable } from '@/db/schema'
+import { boardTable } from '@/db/schema'
 
 export async function generateStaticParams() {
   const boards = await db.select().from(boardTable)
@@ -35,39 +35,27 @@ export default async function Page(props: {
   const { lang } = params as { slug: string; lang: 'en' | 'tr' }
   const intl = await getIntl(lang)
   const messages = await getMessages(lang)
-  const board = await db
-    .select()
-    .from(boardTable)
-    .where(eq(boardTable.slug, params.slug))
 
-  if (!board.length) {
+  const result = await db.query.boardTable.findFirst({
+    where: (board) => eq(board.slug, params.slug),
+    with: {
+      columns: {
+        with: {
+          tasks: {
+            with: {
+              subtasks: true,
+            },
+          },
+        },
+      },
+    },
+  })
+
+  if (!result) {
     redirect(`/${lang}/dashboard`)
   }
 
-  const columns = await db
-    .select()
-    .from(columnTable)
-    .where(eq(columnTable.boardId, board[0].id))
-
-  const tasks = await db
-    .select()
-    .from(taskTable)
-    .where(
-      inArray(
-        taskTable.columnId,
-        columns.map((column) => column.id)
-      )
-    )
-
-  const subTasks = await db
-    .select()
-    .from(subtaskTable)
-    .where(
-      inArray(
-        subtaskTable.taskId,
-        tasks.map((task) => task.id)
-      )
-    )
+  const { columns } = result
 
   return (
     <div className="flex h-[calc(100vh-64px)] gap-5 overflow-scroll p-6 md:h-[calc(100vh-5rem)] lg:h-[calc(100vh-6rem)]">
@@ -78,8 +66,8 @@ export default async function Page(props: {
               key={column.id}
               id={column.boardId}
               name={column.name}
-              tasks={tasks.filter((task) => task.status === column.name)}
-              subTasks={subTasks}
+              tasks={column.tasks}
+              subTasks={column.tasks.flatMap((task) => task.subtasks)}
               locale={lang}
               messages={messages}
             />

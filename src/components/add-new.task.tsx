@@ -101,163 +101,159 @@ export default function AddNewTask({
     }
   }
 
+  // Dialog sadece title tanımlı olduğunda render edilecek
+  if (!title) {
+    return null
+  }
+
   return (
-    <>
-      <Dialog>
-        <DialogTrigger asChild>
-          <div>
+    <Dialog>
+      <DialogTrigger asChild>
+        <div>
+          <Button className="hidden md:inline-flex">
+            <FormattedMessage id="page.header.add.new.task" />
+          </Button>
+          <Button size="icon" className="rounded-full md:hidden">
+            <Plus />
+          </Button>
+        </div>
+      </DialogTrigger>
+      <DialogContent className="max-h-[600px] overflow-scroll bg-white dark:bg-dark-grey">
+        <DialogHeader>
+          <DialogTitle>
+            <FormattedMessage id="modal.add.new.task.header" />
+          </DialogTitle>
+        </DialogHeader>
+        <Form {...form}>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Title Input */}
+            <FormField
+              control={control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <FormattedMessage id="modal.add.new.task.title" />
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      value={field.value || ''}
+                      placeholder={intl.formatMessage({
+                        id: 'modal.add.new.task.title.placeholder',
+                        defaultMessage: 'e.g Take coffee break',
+                      })}
+                    />
+                  </FormControl>
+                  <FormMessage>{errors.title?.message}</FormMessage>
+                </FormItem>
+              )}
+            />
+
+            {/* Description Input */}
+            <FormField
+              control={control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <FormattedMessage id="modal.add.new.task.description.label" />
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      className="h-[135px] resize-none"
+                      {...field}
+                      placeholder={intl.formatMessage({
+                        id: 'modal.add.new.task.description.placeholder',
+                        defaultMessage:
+                          'e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.',
+                      })}
+                    />
+                  </FormControl>
+                  <FormMessage>{errors.description?.message}</FormMessage>
+                </FormItem>
+              )}
+            />
+
+            {/* Subtasks (Dinamik Alanlar) */}
+            <div>
+              <FormLabel>
+                <FormattedMessage id="modal.add.new.task.add.subtask.label" />
+              </FormLabel>
+              {fields.map((field, index) => (
+                <div key={field.id} className="flex items-center gap-2">
+                  <FormControl>
+                    <Input
+                      className="mt-1 w-full"
+                      placeholder={intl.formatMessage({
+                        id: 'modal.add.new.task.add.subtask',
+                        defaultMessage:
+                          'e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.',
+                      })}
+                      {...register(`subtasks.${index}.title` as const, {
+                        required: true,
+                      })}
+                    />
+                  </FormControl>
+                  <button type="button" onClick={() => remove(index)}>
+                    <X className="text-medium-grey" />
+                  </button>
+                </div>
+              ))}
+            </div>
             <Button
-              disabled={title === undefined}
-              className="hidden md:inline-flex"
+              type="button"
+              onClick={() => append({ title: '' })}
+              className="mt-2 h-10 w-full"
+              variant="secondary"
             >
-              <FormattedMessage id="page.header.add.new.task" />
+              <FormattedMessage id="modal.add.new.task.add.new.subtask" />
             </Button>
-            <Button
-              size="icon"
-              disabled={title === undefined}
-              className="rounded-full md:hidden"
-            >
-              <Plus />
+
+            <FormField
+              control={control}
+              name="status"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    <FormattedMessage id="modal.add.new.task.status" />
+                  </FormLabel>
+                  <FormControl>
+                    <Select
+                      onValueChange={(value) =>
+                        setValue('status', value as string)
+                      }
+                      defaultValue={field.value?.toString()}
+                    >
+                      <SelectTrigger>
+                        <SelectValue
+                          placeholder={intl.formatMessage({
+                            id: 'modal.add.new.task.status.placeholder',
+                            defaultMessage: 'Select a status',
+                          })}
+                        />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {data?.map((column) => (
+                          <SelectItem key={column.id} value={column.name}>
+                            {column.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage>{errors?.status?.message}</FormMessage>
+                </FormItem>
+              )}
+            />
+
+            {/* Submit Button */}
+            <Button type="submit" className="h-10 w-full">
+              <FormattedMessage id="modal.add.new.task.create" />
             </Button>
-          </div>
-        </DialogTrigger>
-        <DialogContent className="max-h-[600px] overflow-scroll bg-white dark:bg-dark-grey">
-          <DialogHeader>
-            <DialogTitle>
-              <FormattedMessage id="modal.add.new.task.header" />
-            </DialogTitle>
-          </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              {/* Title Input */}
-              <FormField
-                control={control}
-                name="title"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      <FormattedMessage id="modal.add.new.task.title" />
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        value={field.value || ''}
-                        placeholder={intl.formatMessage({
-                          id: 'modal.add.new.task.title.placeholder',
-                          defaultMessage: 'e.g Take coffee break',
-                        })}
-                      />
-                    </FormControl>
-                    <FormMessage>{errors.title?.message}</FormMessage>
-                  </FormItem>
-                )}
-              />
-
-              {/* Description Input */}
-              <FormField
-                control={control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      <FormattedMessage id="modal.add.new.task.description.label" />
-                    </FormLabel>
-                    <FormControl>
-                      <Textarea
-                        className="h-[135px] resize-none"
-                        {...field}
-                        placeholder={intl.formatMessage({
-                          id: 'modal.add.new.task.description.placeholder',
-                          defaultMessage:
-                            'e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.',
-                        })}
-                      />
-                    </FormControl>
-                    <FormMessage>{errors.description?.message}</FormMessage>
-                  </FormItem>
-                )}
-              />
-
-              {/* Subtasks (Dinamik Alanlar) */}
-              <div>
-                <FormLabel>
-                  <FormattedMessage id="modal.add.new.task.add.subtask.label" />
-                </FormLabel>
-                {fields.map((field, index) => (
-                  <div key={field.id} className="flex items-center gap-2">
-                    <FormControl>
-                      <Input
-                        className="mt-1 w-full"
-                        placeholder={intl.formatMessage({
-                          id: 'modal.add.new.task.add.subtask',
-                          defaultMessage:
-                            'e.g. It’s always good to take a break. This 15 minute break will recharge the batteries a little.',
-                        })}
-                        {...register(`subtasks.${index}.title` as const, {
-                          required: true,
-                        })}
-                      />
-                    </FormControl>
-                    <button type="button" onClick={() => remove(index)}>
-                      <X className="text-medium-grey" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-              <Button
-                type="button"
-                onClick={() => append({ title: '' })}
-                className="mt-2 h-10 w-full"
-                variant="secondary"
-              >
-                <FormattedMessage id="modal.add.new.task.add.new.subtask" />
-              </Button>
-
-              <FormField
-                control={control}
-                name="status"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>
-                      <FormattedMessage id="modal.add.new.task.status" />
-                    </FormLabel>
-                    <FormControl>
-                      <Select
-                        onValueChange={(value) =>
-                          setValue('status', value as string)
-                        }
-                        defaultValue={field.value?.toString()}
-                      >
-                        <SelectTrigger>
-                          <SelectValue
-                            placeholder={intl.formatMessage({
-                              id: 'modal.add.new.task.status.placeholder',
-                              defaultMessage: 'Select a status',
-                            })}
-                          />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {data?.map((column) => (
-                            <SelectItem key={column.id} value={column.name}>
-                              {column.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage>{errors?.status?.message}</FormMessage>
-                  </FormItem>
-                )}
-              />
-
-              {/* Submit Button */}
-              <Button type="submit" className="h-10 w-full">
-                <FormattedMessage id="modal.add.new.task.create" />
-              </Button>
-            </form>
-          </Form>
-        </DialogContent>
-      </Dialog>
-    </>
+          </form>
+        </Form>
+      </DialogContent>
+    </Dialog>
   )
 }

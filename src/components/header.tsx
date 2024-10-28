@@ -1,7 +1,7 @@
 'use client'
 
 import { useQuery } from '@tanstack/react-query'
-import { ChevronDown, EllipsisVertical, Plus } from 'lucide-react'
+import { ChevronDown, EllipsisVertical } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import React from 'react'
@@ -96,13 +96,7 @@ export default function Header({ locale, messages }: Props) {
 
           {/* Add news task and dots area */}
           <div className="ml-auto flex items-center gap-4">
-            <Button
-              size="icon"
-              disabled={title === undefined}
-              className="rounded-full"
-            >
-              <Plus />
-            </Button>
+            <AddNewTask title={title} />
 
             <Popover>
               <PopoverTrigger className="ml-5">
